@@ -38,7 +38,9 @@ const AskBot = async (req, res) => {
  const getAllChats = async (req, res) => {
    try {
        const data = req.body;
-       const {userId} = data;
+       const {userId} = data; //get the userid
+
+       //get all the chats of particular user
        const botquestions = await Chat.find({userId: userId});
        res.status(200).json(botquestions)
    } catch (error) {

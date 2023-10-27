@@ -11,11 +11,13 @@ import usersotp from "../models/authOtp.js"
 const signupotp = async (req, res) => {
     const { number } = req.body
     try {
+        //check  if user already exists
         const user = await usersotp.findOne({ number})
         if (user) {
-            return res.status(400).json({ msg: "User already registered" })
+            return res.status(400).json({ msg: "User already registered" }) //send error msg if user already exists
         }
         
+        //If user does not exists generate the otp and send it to user's number
         const OTP = otpGenerator.generate(6, {
             digits: true, lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false
         });
@@ -42,9 +44,12 @@ const signupotp = async (req, res) => {
             }
             console.log(res.body);
         });
+
+        //hash the otp before storing it in db
         const salt = await bcrypt.genSalt(10);
         otp.otp = await bcrypt.hash(otp.otp, salt)
 
+        //save the otp
         const result = await otp.save();
         res.status(200).json("otp sent successfully!")
 
@@ -54,25 +59,28 @@ const signupotp = async (req, res) => {
     }
 }
 
+//VERIFY THE OTP ENTERED BY USER DURING SIGN UP
 const verifyOtpSignup = async (req, res) => {
     const { name, number, otp } = req.body
     try {
 
-        const otpHolder = await otpModel.find({ number });
+        const otpHolder = await otpModel.find({ number }); //get the otp stored in db
         if (otpHolder.length === 0) {
             return res.status(400).json({ msg: "you used an experied otp!" })
         }
 
         const rightOtpFind = otpHolder[otpHolder.length - 1];
-        const validUser = await bcrypt.compare(otp, rightOtpFind.otp);
+        const validUser = await bcrypt.compare(otp, rightOtpFind.otp); // compare the otp sent by user and otp stored in DB
 
         if (rightOtpFind.number === number && validUser) {
-            // number.toString();
+            
+            //If otp is valid create user
             const user = await usersotp.create({ name, number })
-            // console.log(user);
+           
+            //create jwt token
             const token = jwt.sign({ _id: user._id, number: user.number }, process.env.JWT_SECRET, { expiresIn: "1h" })
 
-
+            //Delete the used OTP from DB
             const otpDelete = await otpModel.deleteMany({ number: rightOtpFind.number })
             res.status(200).json({ result: user, token })
         }
@@ -84,19 +92,23 @@ const verifyOtpSignup = async (req, res) => {
     }
 }
 
+//USER LOGIN
  const loginOtp = async (req, res) => {
     const { number } = req.body
     try {
+        //check if user already exists
         const user = await usersotp.findOne({ number})
         console.log(user);
         if (!user) {
-            return res.status(404).json({ msg: "User is not registered" })
+            return res.status(404).json({ msg: "User is not registered" })//if not send error
         }
 
+        //if user exists generate and send OTP
         const OTP = otpGenerator.generate(6, {
             digits: true, lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false
         });
 
+        //create OTP object
         const otp = new otpModel({ number: req.body.number, otp: OTP });
         //////////////////////////////////////////////////////////////////////////////////////////////
         var req = unirest("GET", "https://www.fast2sms.com/dev/bulkV2");
@@ -122,10 +134,12 @@ const verifyOtpSignup = async (req, res) => {
         });
 
         //////////////////////////////////////////////////////////////////////////////////////////////
-    
+        
+        // hash the OTP before storing in DB
         const salt = await bcrypt.genSalt(10);
         otp.otp = await bcrypt.hash(otp.otp, salt)
         
+        //Store the OTP in DB
         const result = await otp.save();
         res.status(200).json({ msg: "otp sent successfully!" })
 
@@ -135,24 +149,27 @@ const verifyOtpSignup = async (req, res) => {
     }
 }
 
+//VERIFY THE OTP ENTERED BY USER DURING LOGIN
 const verifyOtpLogin = async (req, res) => {
     const { number, otp } = req.body
     try {
 
-        const otpHolder = await otpModel.find({ number });
+        const otpHolder = await otpModel.find({ number });//get the otp stored in db
         if (otpHolder.length === 0) {
             return res.status(400).json({ msg: "you used an experied otp!" })
         }
 
         const rightOtpFind = otpHolder[otpHolder.length - 1];
-        const validUser = await bcrypt.compare(otp, rightOtpFind.otp);
+        const validUser = await bcrypt.compare(otp, rightOtpFind.otp);// compare the otp sent by user and otp stored in DB
 
         if (rightOtpFind.number === number && validUser) {
-            // number.toString(); 
+            //If otp is valid create user
             const user = await usersotp.findOne({ number });
-            // console.log(user);
+           
+            //create jwt token
             const token = jwt.sign({ _id: user._id, number: user.number }, process.env.JWT_SECRET, { expiresIn: "1h" })
 
+            //Delete OTP from DB
             const otpDelete = await otpModel.deleteMany({ number: rightOtpFind.number })
             res.status(200).json({ result: user, token })
         }
