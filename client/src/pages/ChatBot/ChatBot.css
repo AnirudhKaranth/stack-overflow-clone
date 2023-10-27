@@ -1,0 +1,81 @@
+body{
+    height: 100%;
+}
+
+.chat-box-1{
+    border: 2px solid red;
+    height: 100vh;
+    background-color: #f1f2f3;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.chat-box-1 h3{
+    margin-top: 34px;
+    font-size: 26px;
+}
+.chat-box-2{
+    background-color: rgb(225, 214, 235);
+    height: 75%;
+    width: 50%;
+    /* margin-top: 2%; */
+    border: 2px solid rgb(137, 135, 135);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.chat-box-3a{
+    height: 88%;
+    border-bottom: 2px solid rgb(70, 69, 69);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 8px;
+    overflow: auto;
+}
+
+.chats{
+    background-color: white;
+    width: 80%;
+    padding: 7px;
+    /* margin: 5px; */
+    border-radius: 5px;
+    
+}
+
+.chats-client{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.chats-bot{
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+/* .chats-bot{
+    background-color: #f1f2f3;
+
+} */
+
+.chat-box-3b{
+    display: flex;
+    margin: 7px;
+}
+.chat-box-3b .send-input{
+    width: 90%;
+    height: 90%;
+    padding: 3px;
+    margin: 2px;
+    margin-bottom: 4px;
+}
+.chat-box-3b .send-btn{
+    height: 100%;
+    width: 8%;
+    padding: 3px;
+    margin: 2px;
+    margin-top: 4px;
+}
