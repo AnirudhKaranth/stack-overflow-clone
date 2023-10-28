@@ -7,6 +7,7 @@ import QuestionList from './QuestionList'
 const HomeMainbar = () => {
 
     const questionsList = useSelector(state=>state.questionsReducer)
+    // console.log(questionsList)
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -49,7 +50,7 @@ const HomeMainbar = () => {
           <h1>Loading...</h1> : 
           <>
             <p>{questionsList.data.length} questions</p>
-            <QuestionList questionList={questionsList.data}/>
+            <QuestionList key={questionsList?.data?._id} questionList={questionsList.data}/>
           </>
         }
       </div>

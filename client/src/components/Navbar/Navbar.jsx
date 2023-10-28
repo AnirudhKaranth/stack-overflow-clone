@@ -1,24 +1,31 @@
-import React, {useEffect} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import decode from 'jwt-decode'
 
 import logo from '../../assets/logo.png'
-import  search  from '../../assets/search-solid.svg'
+import  searchIcon  from '../../assets/search-solid.svg'
 import Avatar from '../../components/Avatar/Avatar'
 import './Navbar.css'
 import { setCurrentUser } from '../../actions/currentUser'
+import {fetchAllQuestions} from '../../actions/question'
 
 const Navbar = () => {
+  const [search, setSearch] = useState("")
     const dispatch = useDispatch()
     const navigate = useNavigate()
     var User = useSelector((state) => (state.currentUserReducer));  
 
-    const handleLogout =()=>{
+    const handleLogout =useCallback(()=>{
       dispatch({type: 'LOGOUT'})
       navigate('/')
       dispatch(setCurrentUser(null))
-    }
+    },[dispatch, navigate])
+
+    const handleSearch = (e) => {
+      e.preventDefault()
+      dispatch(fetchAllQuestions(search))
+  }
 
     useEffect(() => {
       const token = User?.token
@@ -29,7 +36,7 @@ const Navbar = () => {
         }
       }
       dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))))
-    }, [dispatch])
+    }, [dispatch, User?.token, handleLogout])
     
   return (
     <nav className='main-nav'>
@@ -40,9 +47,9 @@ const Navbar = () => {
             <Link to='/' className='nav-item nav-btn'>About</Link>
             <Link to='/' className='nav-item nav-btn'>Products</Link>
             <Link to='/' className='nav-item nav-btn'>For Teams</Link>
-            <form>
-                <input type="text" placeholder='search...'/>
-                <img src={search} alt="search" width="18" className='search-icon'/>
+            <form onSubmit={handleSearch}>
+                <input type="text"  value={search} placeholder='search...' onChange={(e) => setSearch(e.target.value)}/>
+                <img src={searchIcon} alt="search" width="18" className='search-icon'/>
             </form>
             {User === null ? 
             <Link to='/Auth' className='nav-item nav-links'>Login</Link> :

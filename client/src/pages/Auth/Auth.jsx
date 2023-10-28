@@ -47,7 +47,7 @@ const Auth = () => {
 
     const otpLogin = async (authData) => {
         try {
-            const { data, status } = await api.otplogIn(authData)
+            const {  status } = await api.otplogIn(authData)
             return status;
 
         } catch (error) {

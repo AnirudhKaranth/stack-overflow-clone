@@ -19,7 +19,11 @@ export const verifyLogIn = (authData)=> API.post('/user/verifyotplogin', authDat
 // export const verifySignUp = (authData)=> API.post('/user/verifyotpsign', authData)
 
 export const postQuestion = (questionData) => API.post('/questions/Ask', questionData)
-export const getAllQuestions = ()=> API.get('/questions/get')
+// export const getAllQuestions = ()=> API.get('/questions/get')
+
+export const getAllQuestions = (search) => API.get(`/questions/get?search=${search}`)
+    
+
 export const deleteQuestion=(id)=> API.delete(`/questions/delete/${id}`) 
 export const voteQuestion=(id, value, userId)=> API.patch(`/questions/vote/${id}`, {value, userId})
 

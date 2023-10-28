@@ -15,8 +15,17 @@ import mongoose from 'mongoose'
 
  const getAllquestions = async(req, res)=>{
     try {
-        const questionList = await Questions.find();
-        res.status(200).json(questionList)
+        const { search } = req.query;
+        if(search==="all"){
+            const questionList = await Questions.find();
+            res.status(200).json(questionList)
+
+        }else{
+            let questionList = await Questions.find({ $or: [{ questionTitle: { $regex: search, $options: 'i' } }, { questionBody: { $regex: search, $options: 'i' } }] })
+            
+            res.status(200).json(questionList)
+
+        }
     } catch (error) {
         res.status(404).json({message: error.message})
     }

@@ -1,4 +1,3 @@
-import React from 'react'
 import * as api from '../api'
 
 export const askQuestion = (questionData, navigate) =>async (dispatch)=> {
@@ -11,11 +10,18 @@ export const askQuestion = (questionData, navigate) =>async (dispatch)=> {
     console.log(error) 
   }
 }
- 
-export const fetchAllQuestions = () => async (dispatch) =>{
+
+export const fetchAllQuestions = (search) => async (dispatch) =>{
     try {
-      const {data} = await api.getAllQuestions();
-      dispatch({type: 'FETCH_ALL_QUESTIONS', payload: data})
+      if(search){
+        
+        const {data} = await api.getAllQuestions(search);
+        
+        dispatch({type: 'FETCH_ALL_QUESTIONS', payload: data})
+      }else{
+        const {data} = await api.getAllQuestions("all")
+        dispatch({type: 'FETCH_ALL_QUESTIONS', payload: data})
+      }
     } catch (error) {
       console.log(error)
     }
@@ -23,7 +29,7 @@ export const fetchAllQuestions = () => async (dispatch) =>{
   
 export const deleteQuestion = (id, navigate) => async (dispatch) =>{
     try {
-      const {data} = await api.deleteQuestion(id)
+      await api.deleteQuestion(id)
       dispatch(fetchAllQuestions())
       navigate('/')
     } catch (error) {
@@ -33,7 +39,7 @@ export const deleteQuestion = (id, navigate) => async (dispatch) =>{
 
 export const voteQuestion = (id, value, userId) => async (dispatch)=>{
   try {
-    const { data } = await api.voteQuestion(id, value, userId)
+    await api.voteQuestion(id, value, userId)
     dispatch(fetchAllQuestions())
   } catch (error) {
     console.log(error);
@@ -53,7 +59,7 @@ export const postAnswer = (answerData) => async (dispatch)=>{
 
 export const  deleteAnswer =(id, answerId, noOfAnswers)=>async (dispatch) =>{
   try {
-    const {data} = await api.deleteAnswer(id, answerId, noOfAnswers)
+    await api.deleteAnswer(id, answerId, noOfAnswers)
     dispatch(fetchAllQuestions())
   } catch (error) {
     console.log(error);
