@@ -27,8 +27,7 @@ const UserProfile = () => {
     const Location = async () => {
         
         try {
-            console.log("axios")
-            axios.get('https://ipgeolocation.abstractapi.com/v1/?api_key=9c69b5e7a64d4a41b0efa4fd19fcff44')
+            axios.get(`https://ipgeolocation.abstractapi.com/v1/?api_key=<YOUR_API_KEY>`)
             .then(response => {
                     setLocation(response.data.region)
                     setmyLocation(true)
@@ -38,7 +37,7 @@ const UserProfile = () => {
                     return response;
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.log(error); 
                 });
             } catch (error) {
                 console.log(error);

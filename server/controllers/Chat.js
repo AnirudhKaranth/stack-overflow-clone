@@ -11,7 +11,7 @@ const AskBot = async (req, res) => {
         
         //using serpapi fetching results from google and saving it in database.  Here chatquestion is the question asked by users and is recieved from front end
 
-        const search = new SerpApi.GoogleSearch("a1d803d55b9dc5d8233a53c65b4e5cf4c38bbae0d20271fd3d75593d1f6c946d");
+        const search = new SerpApi.GoogleSearch(process.env.SERP_API_KEY);
         const params = {
             engine: "google",
             q: `${chatQuestion}`
