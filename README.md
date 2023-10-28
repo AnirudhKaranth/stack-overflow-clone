@@ -23,41 +23,33 @@ This project is a clone of Stack Overflow, developed using the MERN (MongoDB, Ex
 - **Backend**: Node.js, Express
 - **Database**: MongoDB
 - **External API**: Google Search API, fast2sms API (for OTP authentication)
+  
 
 ## Getting Started
 To set up and run the project, follow these steps:
 
 1. **Clone the Repository**:
+   
      ```bash
-     git clone https://github.com/AnirudhKaranth/stackoverflow-clone.git
+     git clone https://github.com/AnirudhKaranth/stack-overflow-clone.git
+     ```
+2. **Installation**: Navigate to the project directory and install dependencies for both the client and server:
+
+     ```bash
+     cd stackoverflow-clone/client
+     npm install
+     cd ../server
+     npm install
      ```
 
+3. **Configuration**: Configure your database connection and API keys in .env file as given in .env.example file.
 
+4. **Running the Application**: Start the development server for both the client and server:
 
-
-
-
-
-
-
-## Usage
-
-To run this project locally:
-
-1. Run the following commands
-
-   ```bash
-   git clone https://github.com/yourusername/stackoverflow-clone.git
-   cd stackoverflow-clone/client
-   npm install
-   cd ../server
-   npm install
-   ```
-
-2. set up .env file in server directory as given in .env.example and run:
-   ```bash
-   cd stackoverflow-clone/server
-   npm start
-   cd ../client
-   npm start
-    ```
+     ```bash
+     cd stackoverflow-clone/server
+     npm start
+     cd ../client
+     npm start
+     ```
+   
