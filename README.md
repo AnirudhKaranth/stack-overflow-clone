@@ -42,11 +42,11 @@ To set up and run the project, follow these steps:
      npm install
      ```
 
-3. **Configuration**: Configure your database connection and API keys in .env file as given in .env.example file. Add location api of abstractapi.com 
- at line /client/src/pages/UserProfile
-/UserProfile.jsx
+3. **Configuration**:
+     Configure your database connection and API keys in .env file as given in .env.example file.
+     Add location api of abstractapi.com at **line 30** in /client/src/pages/UserProfile/UserProfile.jsx
 
-4. **Running the Application**: Start the development server for both the client and server:
+5. **Running the Application**: Start the development server for both the client and server:
 
      ```bash
      cd stackoverflow-clone/server
