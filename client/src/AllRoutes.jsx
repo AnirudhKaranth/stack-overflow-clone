@@ -10,6 +10,7 @@ import Tags from './pages/Tags/Tags'
 import Users from './pages/Users/Users'
 import UserProfile from './pages/UserProfile/UserProfile'
 import ChatBot from './pages/ChatBot/ChatBot'
+import About from './pages/About/About'
 
 
 const AllRoutes = () => {
@@ -17,6 +18,8 @@ const AllRoutes = () => {
     <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/auth' element={<Auth/>}/>
+        <Route path='/about' element={<About/>}/>
+
         <Route path='/Questions' element={<Questions/>}/>
         <Route path='/AskQuestion' element={<AskQuestion/>}/>
         <Route path='/ChatBot' element={<ChatBot/>}/>

@@ -44,9 +44,7 @@ const Navbar = () => {
             <Link to='/' className='nav-item nav-logo'>
                 <img src= {logo} alt='logo' />
             </Link>
-            <Link to='/' className='nav-item nav-btn'>About</Link>
-            <Link to='/' className='nav-item nav-btn'>Products</Link>
-            <Link to='/' className='nav-item nav-btn'>For Teams</Link>
+            <Link to='/about' className='nav-item nav-btn'>About</Link>
             <form onSubmit={handleSearch}>
                 <input type="text"  value={search} placeholder='search...' onChange={(e) => setSearch(e.target.value)}/>
                 <img src={searchIcon} alt="search" width="18" className='search-icon'/>
