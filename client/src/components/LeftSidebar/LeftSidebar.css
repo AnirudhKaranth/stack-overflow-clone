@@ -45,3 +45,20 @@
     background-color: rgb(225, 225, 225);
     border-right: solid 3px #ef8236;
 }
+
+@media only screen and (max-width: 768px) {
+    .left-sidebar{
+        width: 245px;
+        position: absolute;
+        background-color: white;
+        left: 0%;
+        
+    }
+
+    .side-nav{
+        margin: 4px 0px;
+        padding: 4px 0px;
+        padding-bottom: 8px;
+        margin-bottom: 12px;
+    }
+}

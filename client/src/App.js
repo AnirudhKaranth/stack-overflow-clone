@@ -6,6 +6,7 @@ import AllRoutes from './AllRoutes'
 import { fetchAllQuestions } from './actions/question';
 import { fetchAllUsers } from './actions/users';
 import { fetchAllChats } from './actions/chat';
+// import Navbar from './components/Navbar/Navbar';
 
 function App() {
   const dispatch =useDispatch();
@@ -21,7 +22,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        {/* <Navbar /> */}
+        {/* <Navbar/> */}
         <AllRoutes/>
       </Router>
 
