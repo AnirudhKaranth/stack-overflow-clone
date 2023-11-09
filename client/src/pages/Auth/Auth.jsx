@@ -22,8 +22,6 @@ const Auth = () => {
   const handleResize = () => {
     setScreenWidth(window.innerWidth);
   };
-  console.log("signup: ", isSignup)
-  console.log("otp: ", isOtp)
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
