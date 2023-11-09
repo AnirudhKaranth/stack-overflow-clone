@@ -25,17 +25,17 @@ export const login = (authData, navigate)=>async (dispatch)=>{
     }
 }
 
-// export const verifysignUp = (authData, navigate)=>async (dispatch)=>{
-//     try {
-//         const {data }= await api.verifySignUp(authData);
-//         dispatch({type: 'AUTH', data})
-//         dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))))
-//         navigate('/')
-//     } catch (error) {
-//         alert(error.response.data.message)
-//         console.log(error);
-//     }
-// }
+export const verifysignUp = (authData, navigate)=>async (dispatch)=>{
+    try {
+        const {data }= await api.verifySignUp(authData);
+        dispatch({type: 'AUTH', data})
+        dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))))
+        navigate('/')
+    } catch (error) {
+        alert(error.response.data.message)
+        console.log(error);
+    }
+}
 export const verifylogin = (authData, navigate)=>async (dispatch)=>{
     try {
         const {data }= await api.verifyLogIn(authData)

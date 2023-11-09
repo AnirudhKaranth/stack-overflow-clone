@@ -1,8 +1,9 @@
 import React from 'react'
+import './UserProfile.css'
 
 const ProfileBio = ({currentProfile}) => {
     return (
-        <div>
+        <div className='profile-bio'>
             <div>
                 {
                     currentProfile?.tags.length !== 0 ? (

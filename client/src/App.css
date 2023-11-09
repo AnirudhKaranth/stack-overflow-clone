@@ -15,6 +15,22 @@
     padding: 2px 2px;
     box-sizing: border-box;
 }
+@media only screen and (min-width: 768px) and (max-width: 1250px)  {
+    .home-container-1{
+        max-width: 100%;
+        margin: 0px auto;
+
+    }
+
+    .home-container-2{
+        width: 100%;
+        border: 1px solid #d6d9dc;
+        padding: 10px 4px 10px 10px;
+        box-sizing: border-box;
+    }
+
+}
+
 @media only screen and (max-width: 768px) {
     .home-container-1{
         max-width: 100%;

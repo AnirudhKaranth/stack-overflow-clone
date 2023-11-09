@@ -12,7 +12,7 @@ import { fetchAllQuestions } from '../../actions/question'
 
 const Navbar = ({toggleSidebar}) => {
   const [search, setSearch] = useState("")
-  const [mobileForm, setmobileForm] = useState(true)
+  const [mobileForm, setmobileForm] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   var User = useSelector((state) => (state.currentUserReducer));
@@ -29,6 +29,7 @@ const Navbar = ({toggleSidebar}) => {
 
   const handleSearch = (e) => {
     e.preventDefault()
+    navigate("/")
     dispatch(fetchAllQuestions(search))
   }
   

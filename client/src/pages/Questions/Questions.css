@@ -122,3 +122,20 @@
     line-height: 18px;
     white-space: pre-line;
 }
+
+@media only screen and (min-width: 768px) and (max-width: 1250px){
+    .question-details-page{
+        width: 100% ;
+        margin: 25px 0px;
+        padding: 0px 5px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .question-details-page{
+        width: 100% ;
+        margin: 25px 0px;
+        padding: 0px 5px;
+    }
+    
+}

@@ -15,8 +15,8 @@ export const signUp = (authData)=> API.post('/user/signUp', authData)
 export const otplogIn = (authData)=> API.post('/user/loginotp', authData)
 export const verifyLogIn = (authData)=> API.post('/user/verifyotplogin', authData)
 
-// export const otpsignUp = (authData)=> API.post('/user/signupotp', authData)
-// export const verifySignUp = (authData)=> API.post('/user/verifyotpsign', authData)
+export const otpsignUp = (authData)=> API.post('/user/signupotp', authData)
+export const verifySignUp = (authData)=> API.post('/user/verifyotpsign', authData)
 
 export const postQuestion = (questionData) => API.post('/questions/Ask', questionData)
 // export const getAllQuestions = ()=> API.get('/questions/get')

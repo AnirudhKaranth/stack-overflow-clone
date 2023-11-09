@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import './AskQuestion.css'
 import {askQuestion} from '../../actions/question'
+import Navbar from '../../components/Navbar/Navbar'
 
 const AskQuestion = () => {
     const [questionTitle, setQuestionTitle] = useState('')
@@ -25,6 +26,8 @@ const AskQuestion = () => {
     }
     
   return (
+    <>
+    <Navbar/>
     <div className='ask-question'>
         <div className="ask-ques-container">
             <h1>Ask a public Question</h1>
@@ -50,6 +53,7 @@ const AskQuestion = () => {
             </form>
         </div>
     </div>
+    </>
   )
 }
 

@@ -4,6 +4,7 @@ import './ChatBot.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { askBot } from '../../actions/chat'
 import { fetchAllChats } from '../../actions/chat'
+import Navbar from '../../components/Navbar/Navbar'
 
 
 const ChatBot = () => {
@@ -30,8 +31,9 @@ const ChatBot = () => {
    
   return (
     <div className='chat-box-1'>
-      <h3>CHAT-BOT</h3>
+      <Navbar/>
       <div className='chat-box-2'>
+      <h3>CHAT-BOT</h3>
         <div className='chat-box-3a'>
           {
             chatList.map((chat)=>{

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,12 +6,12 @@ import { faBirthdayCake, faPen } from '@fortawesome/free-solid-svg-icons'
 import moment from 'moment'
 import axios from 'axios'
 
-
-import Leftsidebar from '../../components/LeftSidebar/LeftSidebar'
 import Avatar from '../../components/Avatar/Avatar'
 import EditProfileForm from './EditProfileForm'
 import ProfileBio from './ProfileBio'
 import './UserProfile.css'
+import LeftSidebar from '../../components/LeftSidebar/LeftSidebar'
+import Navbar from '../../components/Navbar/Navbar'
 
 const UserProfile = () => {
 
@@ -23,6 +23,19 @@ const UserProfile = () => {
     const [Switch, setSwitch] = useState(false)
     const [location, setLocation] = useState("")
     const [mylocation, setmyLocation] = useState(false)
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const handleResize = () => {
+    setScreenWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [])
 
     const Location = async () => {
         
@@ -46,8 +59,15 @@ const UserProfile = () => {
     
 
     return (
-        <div className='home-container-1'>
-            <Leftsidebar />
+        <div>
+        <Navbar toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+      <div className='home-container-1'>
+        {screenWidth >= 768 || isSidebarOpen ? (
+
+          <LeftSidebar />
+        ) : null
+
+        }
             <div className="home-container-2">
                 <section>
                     <div className="user-details-container">
@@ -93,6 +113,7 @@ const UserProfile = () => {
                     </>
                 </section>
             </div>
+        </div>
         </div>
     )
 }

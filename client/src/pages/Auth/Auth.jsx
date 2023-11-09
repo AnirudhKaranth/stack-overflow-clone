@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import './Auth.css'
 import icon from '../../assets/icon.png'
 import AboutAuth from './AboutAuth'
-import { signup, login, verifylogin } from '../../actions/auth'
+import { signup, login, verifylogin, verifysignUp } from '../../actions/auth'
 import * as api from '../../api'
 
 
@@ -17,6 +17,20 @@ const Auth = () => {
     const [password, setPassword] = useState('')
     const [number, setNumber] = useState('')
     const [otp, setOTP] = useState('')
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setScreenWidth(window.innerWidth);
+  };
+  console.log("signup: ", isSignup)
+  console.log("otp: ", isOtp)
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [])
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -27,22 +41,20 @@ const Auth = () => {
     }
     const handleSwitchOtp = () => {
         setIsOtp(!isOtp)
-        if(!isOtp){
-            setIsSignup(false);
-        }
-        console.log(isSignup)
-        console.log(isOtp)
+        console.log("signup: ", isSignup)
+        console.log("otp: ", isOtp)
     }
 
-    // const otpSignup = async (authData) => {
-    //     try {
-    //         const { data, status } = await api.otpsignUp(authData)
-    //         return status;
+    const otpSignup = async (authData) => {
+        try {
+            const { data, status } = await api.otpsignUp(authData)
+            return status;
 
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
+        } catch (error) {
+            console.log(error);
+            alert(error.response.data)
+        }
+    }
 
 
     const otpLogin = async (authData) => {
@@ -51,21 +63,23 @@ const Auth = () => {
             return status;
 
         } catch (error) {
-            console.log(error);
+            console.log(error.response);
+            alert(error.response.data)
         }
     }
 
-    // const toSetverifySignup = async () => {
-    //     await otpSignup({ name, number }).then((response) => {
-    //         if (response === 200) {
-    //             setIsVerify(true)
-    //         }
-    //     }).catch((error) => {
-    //         console.log(error)
-    //         setIsVerify(false)
-    //     })
+    const toSetverifySignup = async () => {
+        await otpSignup({ name, number }).then((response) => {
+            if (response === 200) {
+                setIsVerify(true)
+            }
+        }).catch((error) => {
+            console.log(error)
+            setIsVerify(false)
+            alert(error.response.data)
+        })
 
-    // }
+    }
 
     const toSetverifyLogin = async () => {
         await otpLogin({  number }).then((response) => {
@@ -74,6 +88,7 @@ const Auth = () => {
             }
         }).catch((error) => {
             console.log(error)
+            alert(error.response.data)
             setIsVerify(false)
         })
 
@@ -93,20 +108,20 @@ const Auth = () => {
                 
                 toSetverifyLogin();
             }
-            // if (isSignup) {
-            //     if (!name) {
-            //         alert("Enter a name to continue")
-            //     }
-            //     if (isVerify) {
-            //         dispatch(verifysignUp({ name, number, otp }, navigate))
-            //         setIsVerify(false)
-            //     }
-            //     else {
+            if (isSignup) {
+                if (!name) {
+                    alert("Enter a name to continue")
+                }
+                if (isVerify) {
+                    dispatch(verifysignUp({ name, number, otp }, navigate))
+                    setIsVerify(false)
+                }
+                else {
 
-            //         toSetverifySignup()
-            //     }
+                    toSetverifySignup()
+                }
 
-            // } 
+            } 
         }
         else {
             if (!email || !password) {
@@ -123,8 +138,8 @@ const Auth = () => {
         }
     }
     return (
-        <section className='auth-section'>
-            {isSignup && <AboutAuth />}
+        <div className='auth-section'>
+            {isSignup&& screenWidth >= 768  && <AboutAuth />}
             <div className='auth-container-2'>
                 {!isSignup && <img src={icon} alt='stack overflow' className='login-logo' />}
                 <form onSubmit={handleSubmit}>
@@ -198,7 +213,7 @@ const Auth = () => {
                     <button type='button' className='handle-switch-btn' onClick={handleSwitch}>{isSignup ? "Log in" : "signup"}</button>
                 </p>
             </div>
-        </section>
+        </div>
     )
 }
 

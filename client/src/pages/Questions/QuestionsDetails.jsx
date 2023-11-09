@@ -56,6 +56,7 @@ const QuestionsDetails = () => {
     }
 
     return (
+        <>
         <div className='question-details-page'>
             {
                 questionsList.data === null ?
@@ -79,8 +80,8 @@ const QuestionsDetails = () => {
                                                     {
                                                         question.questionTags.map((tag) => (
                                                             <p key={tag}>{tag}</p>
-                                                        ))
-                                                    }
+                                                            ))
+                                                        }
                                                 </div>
                                                 <div className="question-actions-user">
                                                     <div>
@@ -88,8 +89,8 @@ const QuestionsDetails = () => {
                                                         {
                                                             User?.result?._id === question?.userId && (
                                                                 <button type='button' onClick={handleDelete}>Delete</button>
-                                                            )
-                                                        }
+                                                                )
+                                                            }
                                                     </div>
                                                     <div>
                                                         <p>asked {moment(question.askedOn).fromNow()}</p>
@@ -124,7 +125,7 @@ const QuestionsDetails = () => {
                                                 question.questionTags.map((tag) => (
                                                     <Link to='/Tags' key={tag} className='ans-tags'> {tag} </Link>
                                                     ))
-                                            } or
+                                                } or
                                             <Link to='/AskQuestion' style={{ textDecoration: "none", color: "#009dff" }}>ask your question.</Link>
                                         </p>
                                     </section>
@@ -132,9 +133,11 @@ const QuestionsDetails = () => {
                             ))
                         }
                     </>
+            
             }
 
         </div>
+        </>
     )
 }
 

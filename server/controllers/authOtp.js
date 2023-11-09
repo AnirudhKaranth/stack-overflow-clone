@@ -9,7 +9,7 @@ import users from '../models/auth.js'
 import usersotp from "../models/authOtp.js"
 
 const signupotp = async (req, res) => {
-    const { number } = req.body
+    const {number } = req.body
     try {
         //check  if user already exists
         const user = await usersotp.findOne({ number})
