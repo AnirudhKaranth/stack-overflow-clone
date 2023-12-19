@@ -49,8 +49,8 @@ const Auth = () => {
             return status;
 
         } catch (error) {
-            console.log(error);
-            alert(error.response.data)
+            console.log(error.response.data.msg);
+            alert(error.response.data.msg)
         }
     }
 
@@ -61,32 +61,29 @@ const Auth = () => {
             return status;
 
         } catch (error) {
-            console.log(error.response);
-            alert(error.response.data)
+            console.log(error.response.data.msg);
+            alert(error.response.data.msg)
         }
     }
 
-    const toSetverifySignup = async () => {
-        await otpSignup({ name, number }).then((response) => {
-            if (response === 200) {
-                setIsVerify(true)
-            }
-        }).catch((error) => {
-            console.log(error)
-            setIsVerify(false)
-            alert(error.response.data)
-        })
+    const toSetverifySignup = async () => {   
+        let man =otpSignup({ name, number })    
+        console.log(man) 
+            // if (otpSignup({ name, number })) {
+            //     setIsVerify(true)
+            // }
 
     }
 
     const toSetverifyLogin = async () => {
         await otpLogin({  number }).then((response) => {
             if (response === 200) {
+                console.log("response: ", response)
                 setIsVerify(true)
             }
         }).catch((error) => {
-            console.log(error)
-            alert(error.response.data)
+            console.log(error.response.data)
+            alert(error.response.data.msg)
             setIsVerify(false)
         })
 
@@ -98,14 +95,7 @@ const Auth = () => {
             if (!number) {
                 alert("Enter a number to continue")
             }
-            if (isVerify) {
-                dispatch(verifylogin({name:"user123", number, otp }, navigate))
-                setIsVerify(false)
-            }
-            else {
-                
-                toSetverifyLogin();
-            }
+            
             if (isSignup) {
                 if (!name) {
                     alert("Enter a name to continue")
@@ -119,6 +109,15 @@ const Auth = () => {
                     toSetverifySignup()
                 }
 
+            }else{
+                if (isVerify) {
+                        dispatch(verifylogin({name, number, otp }, navigate))
+                        setIsVerify(false)
+                    }
+                    else {
+                        
+                        toSetverifyLogin();
+                    }
             } 
         }
         else {

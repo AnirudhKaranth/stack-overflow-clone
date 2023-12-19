@@ -8,7 +8,7 @@ export const signup = (authData, navigate)=>async (dispatch)=>{
         dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))))
         navigate('/')
     } catch (error) {
-        alert(error.response.data.message)
+        alert(error.response.data.msg)
         console.log(error);
     }
 } 
@@ -20,7 +20,7 @@ export const login = (authData, navigate)=>async (dispatch)=>{
         dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))))
         navigate('/')
     } catch (error) {
-        alert(error.response.data.message)
+        alert(error.response.data.msg)
         console.log(error);
     }
 }
@@ -32,7 +32,7 @@ export const verifysignUp = (authData, navigate)=>async (dispatch)=>{
         dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))))
         navigate('/')
     } catch (error) {
-        alert(error.response.data.message)
+        alert(error.response.data.msg)
         console.log(error);
     }
 }
@@ -43,7 +43,7 @@ export const verifylogin = (authData, navigate)=>async (dispatch)=>{
         dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))))
         navigate('/')
     } catch (error) {
-        alert(error.response.data.message)
+        alert(error.response.data.msg)
         console.log(error);
     }
 }
